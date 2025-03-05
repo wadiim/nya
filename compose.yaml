@@ -1,0 +1,12 @@
+services:
+  backend:
+    container_name: nya-backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend/target/ROOT.war
+    ports:
+      - 8080:8080
