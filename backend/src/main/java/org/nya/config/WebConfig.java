@@ -61,7 +61,7 @@ public class WebConfig {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(hibernateProperties());
- 
+
         return em;
     }
 
@@ -76,26 +76,26 @@ public class WebConfig {
         return transactionManager;
     }
 
-	@Bean
-	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-		return new PersistenceExceptionTranslationPostProcessor();
-	}
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 
-	Properties hibernateProperties() {
-		Properties properties = new Properties();
-		properties.setProperty(
+    Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.setProperty(
             "hibernate.dialect",
             env.getProperty("hibernate.dialect")
         );
-		properties.setProperty(
+        properties.setProperty(
             "hibernate.show_sql",
             env.getProperty("hibernate.show_sql")
         );
-		properties.setProperty(
+        properties.setProperty(
             "hibernate.hbm2ddl.auto",
             env.getProperty("hibernate.hbm2ddl.auto")
         );
 
-		return properties;
-	}
+        return properties;
+    }
 }
