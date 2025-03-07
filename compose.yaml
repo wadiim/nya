@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: nya-backend
+    container_name: nya-api
     build:
       context: ./backend
       dockerfile: ./Dockerfile
@@ -8,5 +8,33 @@ services:
       watch:
         - action: rebuild
           path: ./backend/target/ROOT.war
+    env_file:
+      - .env
+    environment:
+      - DATASOURCE_URL=jdbc:postgresql://nya-db:${POSTGRES_PORT}/${POSTGRES_DB}
     ports:
       - 8080:8080
+    networks:
+      - api_db
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    container_name: nya-db
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - api_db
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 2s
+      timeout: 2s
+      retries: 3
+
+networks:
+  api_db:
+    driver: bridge
