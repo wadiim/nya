@@ -53,16 +53,16 @@ public class WebConfig {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
+        LocalContainerEntityManagerFactoryBean entityManagerFactory
             = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("org.nya.entities");
+        entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setPackagesToScan("org.nya.entities");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(hibernateProperties());
+        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
+        entityManagerFactory.setJpaProperties(hibernateProperties());
 
-        return em;
+        return entityManagerFactory;
     }
 
     @Bean
@@ -94,6 +94,10 @@ public class WebConfig {
         properties.setProperty(
             "hibernate.hbm2ddl.auto",
             env.getProperty("hibernate.hbm2ddl.auto")
+        );
+        properties.setProperty(
+            "hibernate.hbm2ddl.import_files",
+            env.getProperty("hibernate.hbm2ddl.import_files")
         );
 
         return properties;
