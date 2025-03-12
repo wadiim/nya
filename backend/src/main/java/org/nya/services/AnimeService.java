@@ -7,8 +7,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 import java.util.Optional;
 
-import org.nya.repositories.AnimeRepository;
 import org.nya.entities.Anime;
+import org.nya.exceptions.AnimeNotFoundException;
+import org.nya.repositories.AnimeRepository;
 
 @Service
 public class AnimeService {
@@ -19,11 +20,12 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    public String find(String id) {
+    public Anime getAnimeById(String id) throws AnimeNotFoundException {
         // TODO: Handle invalid `UUID`s.
-        // TODO: Throw an exception when the entity with the given `id` was
-        //       not found.
-        Optional<Anime> optEntity = animeRepository.find(UUID.fromString(id));
-        return (optEntity.isPresent()) ? optEntity.get().getTitle() : "NULL";
+        Anime anime = animeRepository
+            .find(UUID.fromString(id))
+            .orElseThrow(AnimeNotFoundException::new);
+
+        return anime;
     }
 }
