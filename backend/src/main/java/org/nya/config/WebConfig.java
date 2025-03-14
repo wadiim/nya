@@ -16,6 +16,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
+
 import java.util.Properties;
 
 import lombok.extern.java.Log;
@@ -23,9 +27,13 @@ import lombok.extern.java.Log;
 @Log
 @EnableWebMvc
 @Configuration
-@ComponentScan("org.nya")
+@ComponentScan({ "org.nya", "org.springdoc" })
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
+@OpenAPIDefinition(
+    info = @Info(title = "Nya API", version = "v1", description = ""),
+    servers = { @Server(url = "/", description = "Default URL") }
+)
 public class WebConfig {
 
     @Autowired
