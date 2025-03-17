@@ -31,7 +31,7 @@ public class AnimeController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getAnime(@PathVariable(name = "id") String id) {
+    public ResponseEntity<?> getAnime(@PathVariable(name = "id") UUID id) {
         try {
             // TODO: Use a DTO.
             Anime anime = animeService.getAnimeById(id);

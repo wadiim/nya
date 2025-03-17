@@ -24,10 +24,9 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    public Anime getAnimeById(String id) throws AnimeNotFoundException {
-        // TODO: Handle invalid `UUID`s.
+    public Anime getAnimeById(UUID id) throws AnimeNotFoundException {
         Anime anime = animeRepository
-            .find(UUID.fromString(id))
+            .find(id)
             .orElseThrow(AnimeNotFoundException::new);
 
         return anime;
