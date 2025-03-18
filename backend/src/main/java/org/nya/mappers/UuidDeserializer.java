@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.nya.exceptions.InvalidUUIDException;
+import org.nya.exceptions.InvalidUuidException;
 
-public class UUIDDeserializer extends JsonDeserializer<UUID> {
+public class UuidDeserializer extends JsonDeserializer<UUID> {
 
     @Override
     public UUID deserialize(
@@ -21,7 +21,7 @@ public class UUIDDeserializer extends JsonDeserializer<UUID> {
         try {
             return UUID.fromString(uuidString);
         } catch (IllegalArgumentException e) {
-            throw new InvalidUUIDException(
+            throw new InvalidUuidException(
                 "UUID has invalid form: " + uuidString
             );
         }

@@ -5,13 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import org.nya.exceptions.InvalidUUIDException;
+import org.nya.exceptions.InvalidUuidException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(InvalidUUIDException.class)
-    public ResponseEntity<?> handleInvalidUUIDException(InvalidUUIDException ex) {
+    @ExceptionHandler(InvalidUuidException.class)
+    public ResponseEntity<?> handleInvalidUuidException(InvalidUuidException ex) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .body("\"" + ex.getMessage() + "\"");
